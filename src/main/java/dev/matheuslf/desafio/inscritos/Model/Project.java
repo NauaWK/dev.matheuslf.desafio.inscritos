@@ -49,6 +49,11 @@ public class Project {
     public Long getId(){
         return id;
     }
+    
+    //NOTA: SETTER DO ID APENAS PARA OS TESTES!
+    public void setId(Long id){
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -64,6 +69,10 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public LocalDate getStartDate() {

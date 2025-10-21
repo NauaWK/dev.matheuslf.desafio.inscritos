@@ -1,6 +1,7 @@
 
 package dev.matheuslf.desafio.inscritos.DTO.ProjectDTOs;
 
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
@@ -12,7 +13,8 @@ public record ProjectRequestDTO(
     String name,
 
     String description,
-
+    
+    @FutureOrPresent(message = "A data de vencimento não pode estar no passado")
     LocalDate endDate
 
     ) {}

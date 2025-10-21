@@ -3,6 +3,7 @@ package dev.matheuslf.desafio.inscritos.DTO.TaskDTOs;
 
 import dev.matheuslf.desafio.inscritos.Utils.Enum.TaskPriority;
 import dev.matheuslf.desafio.inscritos.Utils.Enum.TaskStatus;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,10 +26,10 @@ public record TaskRequestDTO(
     TaskPriority priority,
     
     @NotNull(message = "data limite é obrigatória")
+    @FutureOrPresent(message = "A data de vencimento não pode estar no passado")   
     LocalDate dueDate,
     
     @NotNull(message = "ID do projeto relacionado à esta task é obrigatório")
     Long projectId
-              
-        
+                     
     ){}
