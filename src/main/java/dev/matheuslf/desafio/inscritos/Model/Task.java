@@ -63,6 +63,11 @@ public class Task {
         return id;
     }
 
+    //NOTA: SETTER DO ID APENAS PARA OS TESTES!
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }

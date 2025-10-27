@@ -33,7 +33,7 @@ public class ProjectServicesTests {
     private ProjectServices projectServices;
     
     @Test
-    void shouldAddProjectSuccessfully(){
+    void addProject_shouldSucceed_whenValidRequest(){
         
         ProjectRequestDTO request = new ProjectRequestDTO("Projeto A", "Descrição", LocalDate.of(2025, 10, 20));
         
@@ -43,7 +43,7 @@ public class ProjectServicesTests {
         project.setStartDate(today);
         
         ProjectResponseDTO response = new ProjectResponseDTO(
-                1L,
+                project.getId(),
                 "Projeto A", 
                 "Descrição", 
                 today,
@@ -56,12 +56,12 @@ public class ProjectServicesTests {
 
         ProjectResponseDTO result = projectServices.addProject(request);
 
-        assertEquals("Projeto A", result.name());
+        assertEquals(response.id(), result.id());
         
     }
     
     @Test
-    void shouldThrowExceptionIfProjectExists() {
+    void addProject_shouldFail_whenProjectAlreadyExists()  {
         ProjectRequestDTO request = new ProjectRequestDTO("Projeto A", "Descrição", LocalDate.of(2025, 10, 20));
         when(projectRepository.existsByName("Projeto A")).thenReturn(true);
 

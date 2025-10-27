@@ -25,7 +25,7 @@ public class Project {
     private String description;
     
     
-    @OneToMany(mappedBy = "project_id")
+    @OneToMany(mappedBy = "project")
     private List<Task> tasks;
     
     

@@ -35,7 +35,7 @@ public class TaskMappersTest {
                 TaskStatus.TODO,
                 TaskPriority.LOW,
                 LocalDate.of(2025, 10, 20),
-                1L
+                project.getId()
         );
         
         Task task = taskMappers.toTask(dto, project);

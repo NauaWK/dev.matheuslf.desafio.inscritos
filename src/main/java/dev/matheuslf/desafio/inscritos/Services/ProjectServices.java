@@ -7,6 +7,8 @@ import dev.matheuslf.desafio.inscritos.Exception.CustomExceptions.ObjectAlreadyE
 import dev.matheuslf.desafio.inscritos.Model.Project;
 import dev.matheuslf.desafio.inscritos.Repository.ProjectRepository;
 import dev.matheuslf.desafio.inscritos.Utils.Mappers.ProjectMappers;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 
@@ -22,15 +24,27 @@ public class ProjectServices {
     }
     
     public ProjectResponseDTO addProject(ProjectRequestDTO request) {
-        if(!projectRepository.existsByName(request.name())){
-            Project project = projectMappers.toProject(request);
-            projectRepository.save(project);      
-            ProjectResponseDTO dto = projectMappers.toDto(project);
-            return dto;            
-        }    
-        else{
-            throw new ObjectAlreadyExistsException("Projeto com o nome " + request.name() + " já existe.");
-        }     
+        if(projectRepository.existsByName(request.name())){
+            throw new ObjectAlreadyExistsException("Projeto com o nome " + request.name() + " já existe.");         
+        }  
+        
+        Project project = projectMappers.toProject(request);
+        projectRepository.save(project);      
+        return projectMappers.toDto(project);
+    }
+    
+    public List<ProjectResponseDTO> getAllProjects(){
+        List<Project> projectsList =  projectRepository.findAll();
+
+        //convertendo cada Project em ProjectResponseDTO
+        List<ProjectResponseDTO> responseDtos = projectsList.stream().map(project -> new ProjectResponseDTO(               
+            project.getId(),
+            project.getName(),
+            project.getDescription(),
+            project.getStartDate(),
+            project.getEndDate())).collect(Collectors.toList());
+
+        return responseDtos;
     }
     
 }

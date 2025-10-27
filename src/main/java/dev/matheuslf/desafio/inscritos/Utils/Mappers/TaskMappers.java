@@ -18,7 +18,7 @@ public class TaskMappers {
             taskRequest.priority(),
             taskRequest.dueDate(),
             project
-        );      
+        );    
     }  
     
     public TaskResponseDTO toDto(Task task){
