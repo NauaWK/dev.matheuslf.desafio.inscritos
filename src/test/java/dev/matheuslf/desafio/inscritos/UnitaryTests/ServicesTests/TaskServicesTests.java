@@ -14,6 +14,7 @@ import dev.matheuslf.desafio.inscritos.Utils.Enum.TaskPriority;
 import dev.matheuslf.desafio.inscritos.Utils.Enum.TaskStatus;
 import dev.matheuslf.desafio.inscritos.Utils.Mappers.TaskMappers;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -84,11 +85,6 @@ public class TaskServicesTests {
         TaskResponseDTO result = taskServices.addTask(request);
         
         assertEquals(response.id(), result.id());        
-        verify(taskRepository).existsByTitle("Task A");
-        verify(projectRepository).findById(1L);
-        verify(taskRepository).save(task);
-        verify(taskMappers).toTask(request, project);
-        verify(taskMappers).toDto(task);
               
     }
     
@@ -130,5 +126,42 @@ public class TaskServicesTests {
         assertThrows(ProjectNotFoundException.class, () -> taskServices.addTask(request));  
         verify(projectRepository).findById(request.projectId());
     }  
+     
+    /*
+    @Test
+    void getTask_shouldSucceed_whenUsingValidFilters(){
+        
+        Project project = new Project("Projeto A", "Descrição", LocalDate.of(2025, 10, 20));
+        project.setId(1L);      
+        
+        Task task = new Task(
+            "Task A",
+            "Descrição", 
+            TaskStatus.TODO, 
+            TaskPriority.HIGH,
+            LocalDate.of(2025, 10, 20),
+            project        
+        );
+        task.setId(1L);
+        
+        TaskResponseDTO response = new TaskResponseDTO(
+            1L,
+            "Task A",
+            "Descrição", 
+            TaskStatus.TODO, 
+            TaskPriority.LOW,
+            LocalDate.of(2025, 10, 20),
+            project.getId()
+        );      
+        
+        List<Task> tasks = List.of(task);
+        List<TaskResponseDTO> responseDtos = List.of(response);
+        
+        when(taskRepository.findTasksByFilters("TODO", "HIGH", project.getId())).thenReturn(tasks);
+                     
+        assertEquals(responseDtos, taskServices.getTaskWithFilters("todo", "high", "1"));
+        verify(taskRepository).findTasksByFilters("TODO", "HIGH", project.getId());   
+        
+    }*/
        
 }

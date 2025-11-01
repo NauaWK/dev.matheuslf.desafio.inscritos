@@ -3,6 +3,7 @@ package dev.matheuslf.desafio.inscritos.Model;
 
 import dev.matheuslf.desafio.inscritos.Utils.Enum.TaskPriority;
 import dev.matheuslf.desafio.inscritos.Utils.Enum.TaskStatus;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,9 +29,11 @@ public class Task {
     
     private String description;
     
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
     
+    @Column(name = "priority")
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
     

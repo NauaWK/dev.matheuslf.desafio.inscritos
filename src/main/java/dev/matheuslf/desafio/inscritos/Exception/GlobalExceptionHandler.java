@@ -1,6 +1,7 @@
 
 package dev.matheuslf.desafio.inscritos.Exception;
 
+import dev.matheuslf.desafio.inscritos.Exception.CustomExceptions.InvalidEnumException;
 import dev.matheuslf.desafio.inscritos.Exception.CustomExceptions.ObjectAlreadyExistsException;
 import dev.matheuslf.desafio.inscritos.Exception.CustomExceptions.ProjectNotFoundException;
 import java.time.LocalDateTime;
@@ -40,6 +41,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ProjectNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleProjectNotFoundException (ProjectNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("404", ex.getMessage()));
+    }
+    
+    @ExceptionHandler(InvalidEnumException.class)
+     public ResponseEntity<ErrorResponse> handleInvalidEnumException (InvalidEnumException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse("400", ex.getMessage()));
     }
        
 }
